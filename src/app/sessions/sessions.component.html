@@ -1,0 +1,195 @@
+<div class="container mt-3">
+  <h2>Sessions</h2>
+  <!-- Bouton Ajouter -->
+  <button class="btn btn-success mb-3" (click)="startAddSession()">Add Session</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Session ID</th>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Room</th>
+        <th>Class</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let session of sessions">
+        <td>{{ session.session_id }}</td>
+        <td>{{ session.subject_id }}</td>
+        <td>{{ session.teacher_id }}</td>
+        <td>{{ session.room_id }}</td>
+        <td>{{ session.class_id }}</td>
+        <td>{{ session.session_date }}</td>
+        <td>{{ session.start_time }}</td>
+        <td>{{ session.end_time }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="editSession(session)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteSession(session.session_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulaire pour modifier une session -->
+  <div *ngIf="editingSession" class="mt-4">
+    <h3>Edit Session</h3>
+    <form (ngSubmit)="updateSession()">
+      <div class="mb-3">
+        <label for="subject_id" class="form-label">Subject:</label>
+        <input
+          type="text"
+          id="subject_id"
+          class="form-control"
+          [(ngModel)]="editingSession.subject_id"
+          name="subject_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="teacher_id" class="form-label">Teacher:</label>
+        <input
+          type="text"
+          id="teacher_id"
+          class="form-control"
+          [(ngModel)]="editingSession.teacher_id"
+          name="teacher_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="room_id" class="form-label">Room:</label>
+        <input
+          type="text"
+          id="room_id"
+          class="form-control"
+          [(ngModel)]="editingSession.room_id"
+          name="room_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="class_id" class="form-label">Class:</label>
+        <input
+          type="text"
+          id="class_id"
+          class="form-control"
+          [(ngModel)]="editingSession.class_id"
+          name="class_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="session_date" class="form-label">Date:</label>
+        <input
+          type="date"
+          id="session_date"
+          class="form-control"
+          [(ngModel)]="editingSession.session_date"
+          name="session_date"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="start_time" class="form-label">Start Time:</label>
+        <input
+          type="time"
+          id="start_time"
+          class="form-control"
+          [(ngModel)]="editingSession.start_time"
+          name="start_time"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="end_time" class="form-label">End Time:</label>
+        <input
+          type="time"
+          id="end_time"
+          class="form-control"
+          [(ngModel)]="editingSession.end_time"
+          name="end_time"
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Formulaire pour ajouter une session -->
+  <div *ngIf="isAddingSession" class="mt-4">
+    <h3>Add Session</h3>
+    <form (ngSubmit)="addSession()">
+      <div class="mb-3">
+        <label for="new_subject_id" class="form-label">Subject:</label>
+        <input
+          type="text"
+          id="new_subject_id"
+          class="form-control"
+          [(ngModel)]="newSession.subject_id"
+          name="new_subject_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_teacher_id" class="form-label">Teacher:</label>
+        <input
+          type="text"
+          id="new_teacher_id"
+          class="form-control"
+          [(ngModel)]="newSession.teacher_id"
+          name="new_teacher_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_room_id" class="form-label">Room:</label>
+        <input
+          type="text"
+          id="new_room_id"
+          class="form-control"
+          [(ngModel)]="newSession.room_id"
+          name="new_room_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_class_id" class="form-label">Class:</label>
+        <input
+          type="text"
+          id="new_class_id"
+          class="form-control"
+          [(ngModel)]="newSession.class_id"
+          name="new_class_id"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_session_date" class="form-label">Date:</label>
+        <input
+          type="date"
+          id="new_session_date"
+          class="form-control"
+          [(ngModel)]="newSession.session_date"
+          name="new_session_date"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_start_time" class="form-label">Start Time:</label>
+        <input
+          type="time"
+          id="new_start_time"
+          class="form-control"
+          [(ngModel)]="newSession.start_time"
+          name="new_start_time"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_end_time" class="form-label">End Time:</label>
+        <input
+          type="time"
+          id="new_end_time"
+          class="form-control"
+          [(ngModel)]="newSession.end_time"
+          name="new_end_time"
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+    </form>
+  </div>
+</div>

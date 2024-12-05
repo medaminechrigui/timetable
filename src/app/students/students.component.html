@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Liste des Étudiants</h2>
+
+  <!-- Add Student Button -->
+  <button class="btn btn-success mb-3" (click)="startAddStudent()">Add Student</button>
+
+  <!-- Students Table -->
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>ID Étudiant</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ student.student_id }}</td>
+        <td>{{ student.first_name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>{{ student.email }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="editStudent(student)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteStudent(student.student_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Form for adding a new student -->
+  <div *ngIf="isAddingStudent" class="mt-4">
+    <h3>Add Student</h3>
+    <form (ngSubmit)="addStudent()">
+      <div class="mb-3">
+        <label for="student_name" class="form-label">Full Name:</label>
+        <input type="text" id="student_name" class="form-control" [(ngModel)]="newStudent.first_name" name="student_name" />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="newStudent.email" name="email" />
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Form for editing a student -->
+  <div *ngIf="editingStudent" class="mt-4">
+    <h3>Edit Student</h3>
+    <form (ngSubmit)="updateStudent()">
+      <div class="mb-3">
+        <label for="edit_student_name" class="form-label">Full Name:</label>
+        <input type="text" id="edit_student_name" class="form-control" [(ngModel)]="editingStudent.first_name" name="edit_student_name" />
+      </div>
+      <div class="mb-3">
+        <label for="edit_email" class="form-label">Email:</label>
+        <input type="email" id="edit_email" class="form-control" [(ngModel)]="editingStudent.email" name="edit_email" />
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+  

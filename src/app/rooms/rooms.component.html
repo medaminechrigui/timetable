@@ -1,0 +1,126 @@
+<div class="container mt-3">
+  <h2>Rooms</h2>
+  <button class="btn btn-success mb-3" (click)="startAddRoom()">Add Room</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Building</th>
+        <th>Floor</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let room of rooms">
+        <td>{{ room.room_id }}</td>
+        <td>{{ room.room_name }}</td>
+        <td>{{ room.capacity }}</td>
+        <td>{{ room.building }}</td>
+        <td>{{ room.floor }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="editRoom(room)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteRoom(room.room_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editingRoom" class="mt-4">
+    <h3>Edit Room</h3>
+    <form (ngSubmit)="updateRoom()">
+      <div class="mb-3">
+        <label for="room_name" class="form-label">Name:</label>
+        <input
+          type="text"
+          id="room_name"
+          class="form-control"
+          [(ngModel)]="editingRoom.room_name"
+          name="room_name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="capacity" class="form-label">Capacity:</label>
+        <input
+          type="number"
+          id="capacity"
+          class="form-control"
+          [(ngModel)]="editingRoom.capacity"
+          name="capacity"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="building" class="form-label">Building:</label>
+        <input
+          type="text"
+          id="building"
+          class="form-control"
+          [(ngModel)]="editingRoom.building"
+          name="building"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="floor" class="form-label">Floor:</label>
+        <input
+          type="number"
+          id="floor"
+          class="form-control"
+          [(ngModel)]="editingRoom.floor"
+          name="floor"
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <div *ngIf="isAddingRoom" class="mt-4">
+    <h3>Add Room</h3>
+    <form (ngSubmit)="addRoom()">
+      <div class="mb-3">
+        <label for="new_room_name" class="form-label">Name:</label>
+        <input
+          type="text"
+          id="new_room_name"
+          class="form-control"
+          [(ngModel)]="newRoom.room_name"
+          name="new_room_name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_capacity" class="form-label">Capacity:</label>
+        <input
+          type="number"
+          id="new_capacity"
+          class="form-control"
+          [(ngModel)]="newRoom.capacity"
+          name="new_capacity"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_building" class="form-label">Building:</label>
+        <input
+          type="text"
+          id="new_building"
+          class="form-control"
+          [(ngModel)]="newRoom.building"
+          name="new_building"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="new_floor" class="form-label">Floor:</label>
+        <input
+          type="number"
+          id="new_floor"
+          class="form-control"
+          [(ngModel)]="newRoom.floor"
+          name="new_floor"
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+    </form>
+  </div>
+</div>
